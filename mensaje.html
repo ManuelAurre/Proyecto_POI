@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat viejo</title>
+    <script type="module" src="mensajes.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+</head>
+<body>
+    <section>
+        <div align="center"> 
+            <h2 id="userDisplay"></h2>
+            <br><br>
+            <div id="messages">
+                <!-- Aquí se mostrarán los mensajes -->
+            </div>
+            <div>
+                <br><br>
+                <label for="mensaje">mensaje </label>
+                <br><br>
+                <textarea  id="mensaje"></textarea>
+            </div>
+            <br>
+            <label for="recipient">Selecciona un destinatario:</label>
+            <select id="recipient">
+                
+            </select>
+            <input type="button" id="btnEnviar" value="Enviar">
+            <br><br>
+            <input type="button" id="btnCrearGrupo" value="Crear Grupo">
+            <input type="button" id="btonEditarGrupo" value="EditarGrupo">
+            <input type="button" id="signOutBtn" value="Desconectar">
+            <br><br><br><br>
+              <!-- GrupoS -->
+            <div >
+                <label for="grupos">Tus grupos:</label>
+                <select id="grupos">
+                </select>
+                <input type="button" id="seleccionarGrupo" value="Seleccionar">
+            </div>
+            
+            <br>
+            <div>
+                <label id="tmgrupo">No tienes mensajes</label>
+            </div>
+            
+            <br>
+            <div>
+                <label for="mensajeGrupo">Inserta texto:</label>
+                <input type="text" id="mensajeGrupo">
+                <input type="button" id="btnEnviar2" value="Enviar">
+            </div>
+            <br><br>
+            <input type="button"  onclick="location='correo.html'" id="correoBtn" value="Enviar correo">
+
+            <input type="button"  onclick="getLocation()" id="ubicacionBtn" value="Obtener mi ubicacion">
+
+            <input type="button" id="videochatBtn" value="Comenzar videollamada">
+            <br><br>
+
+            <script>
+              const enlace = document.getElementById("videochatBtn");
+              enlace.href="#";
+              enlace.addEventListener('click', function(){
+                  enlace.href="#";
+                  window.open('video llamada.html','popup', 'width=2000,height=1000');
+              });
+            </script>
+
+
+
+
+            <p id="demo"></p>
+    
+            <script>
+            
+              const x = document.getElementById("demo");
+              
+
+              function getLocation() 
+              {
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(showPosition);
+                } else { 
+                  x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+              }
+              
+              function showPosition(position) 
+              {
+                x.innerHTML = "Latitude: " + position.coords.latitude + 
+                "<br>Longitude: " + position.coords.longitude;
+              }
+
+            </script> 
+
+      </div>
+        
+    </section>
+
+</body>
+</html>

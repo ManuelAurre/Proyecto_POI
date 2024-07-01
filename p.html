@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Combobox y Label con Firebase</title>
+</head>
+<body>
+    <label id="resultado">mensajes</label>
+    <br>
+    <br>
+    <br>
+    <br>
+    <label for="seleccionaOpcion">Selecciona un grupo:</label>
+    <select id="seleccionarOpcion"></select>
+    <button id="seleccionarBtn">Seleccionar</button>
+    <br>
+    <!-- Elemento donde mostrar los mensajes -->
+    <div id="mensajes"></div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js';
+        import { getDatabase, ref, push, onChildAdded, query, equalTo } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAOnRHRND19HSaN19cUlez3AepxYOhszdM",
+            authDomain: "porientadainternet.firebaseapp.com",
+            projectId: "porientadainternet",
+            storageBucket: "porientadainternet.appspot.com",
+            messagingSenderId: "112181805077",
+            appId: "1:112181805077:web:a8a3ec9a7d190c42448e1c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const seleccionarOpcion = document.getElementById('seleccionarOpcion');
+        const mensajesContainer = document.getElementById('mensajes');
+        const seleccionarBtn = document.getElementById('seleccionarBtn'); // Agrega el botón
+
+        // Referencia a la base de datos de Firebase para cargar grupos
+        const gruposRef = ref(db, 'grupos');
+
+        // Cargar grupos en el combobox
+        onChildAdded(gruposRef, (snapshot) => {
+            const grupo = snapshot.val();
+            const grupoKey = snapshot.key;
+            const option = document.createElement('option');
+            option.value = grupoKey; // Establece el valor como la clave única
+            option.textContent = grupo.nombre;
+            seleccionarOpcion.appendChild(option);
+
+            console.log(`Grupo cargado: ${grupo.nombre}`);
+        });
+
+        // Agrega un evento click al botón "Seleccionar" para mostrar los mensajes del grupo seleccionado
+        seleccionarBtn.addEventListener('click', () => {
+            const grupoSeleccionadoText = seleccionarOpcion.options[seleccionarOpcion.selectedIndex].textContent; // Obtén el texto del grupo seleccionado
+
+            // Limpia los mensajes anteriores
+            mensajesContainer.innerHTML = '';
+
+            // Referencia a la base de datos de Firebase para cargar todos los mensajes de chatgrupal
+            const mensajesRef = ref(db, 'chatgrupal');
+
+            // Cargar y mostrar mensajes del grupo seleccionado
+            onChildAdded(mensajesRef, (snapshot) => {
+                const mensaje = snapshot.val();
+                const destinatario = mensaje.destinatario;
+                const remitente = mensaje.remitente;
+                const textoMensaje = mensaje.mensaje;
+
+                // Compara el destinatario del mensaje con el grupo seleccionado
+                if (destinatario === grupoSeleccionadoText) {
+                    // Muestra el mensaje en el contenedor de mensajes
+                    const mensajeDiv = document.createElement('div');
+                    mensajeDiv.textContent = `${remitente}: ${textoMensaje}`;
+                    mensajesContainer.appendChild(mensajeDiv);
+
+                    console.log('Nuevo mensaje agregado:', snapshot.val());
+                    console.log(`Grupo seleccionado: ${grupoSeleccionadoText} Mensaje cargado: ${remitente}: ${textoMensaje}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

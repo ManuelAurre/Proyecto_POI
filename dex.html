@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <form action ="">
+        <div>
+            &nbsp;<label for="nombre">Nombre </label>
+            <br><br>
+            &nbsp;<input type="text" id="nombre">
+            <br><br>
+        </div>
+        <div>
+            &nbsp;<label for="mensaje">mensaje </label>
+            <br><br>
+            &nbsp;<textarea  id="mensaje"></textarea>
+            <br><br>
+        </div>
+        &nbsp;<button type="button" id="btnEnviar">Enviar</button>
+        <br><br>
+    </form>
+
+    <ul id="chatul">
+        <li>
+            <b>Nombre: </b> Mensaje
+        </li>
+        <li>
+            <b>Nombre: </b> Mensaje
+        </li>
+    </ul>
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAOnRHRND19HSaN19cUlez3AepxYOhszdM",
+          authDomain: "porientadainternet.firebaseapp.com",
+          projectId: "porientadainternet",
+          storageBucket: "porientadainternet.appspot.com",
+          messagingSenderId: "112181805077",
+          appId: "1:112181805077:web:a8a3ec9a7d190c42448e1c"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        var txtNombre = document.getElementById("nombre");
+        var txtMensaje = document.getElementById("mensaje");
+        var btnEnviar = document.getElementById("btnEnviar");
+        var chatul = document.getElementById("chatul");
+
+
+        const chatRef = ref(db, 'chat');
+        onValue(chatRef, (snapshot) => {
+            chatul.innerHTML = ""; // Limpiar la lista de mensajes antes de mostrar los nuevos
+
+            snapshot.forEach((childSnapshot) => {
+                const mensaje = childSnapshot.val();
+                const nombre = mensaje.nombre;
+                const mensajeTexto = mensaje.mensaje;
+                const html = "<li><b>" + nombre + ": </b>" + mensajeTexto + "</li>";
+                chatul.innerHTML += html;
+            });
+        });
+        
+
+        btnEnviar.addEventListener("click", function(){
+            var nombre = txtNombre.value;
+            var mensaje = txtMensaje.value;
+            var html = "<li><b>"+nombre+": </b>"+mensaje+"</li>";
+            chatul.innerHTML += html;
+
+            enviarMensaje(nombre, mensaje);
+            
+        });
+
+        
+        function enviarMensaje(nombre, mensaje) {
+            const chatRef = ref(db, 'chat'); // Aquí se utiliza 'chat' como referencia, puedes cambiarlo según tus necesidades
+                push(chatRef, {
+                    nombre: nombre,
+                    mensaje: mensaje
+                });
+        }
+
+
+      </script>
+</body>
+</html>
+

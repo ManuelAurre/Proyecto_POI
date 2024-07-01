@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chat</title>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+		<!-- Font awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" >
+		<script src="https://kit.fontawesome.com/a6c0612aa3.js" crossorigin="anonymous"></script>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<!-- js si -->
+		<script type="module" src="chatver2.js"></script>
+	</head>
+	<body>
+		
+		<form>
+		
+
+			<!-- JQuery -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+			<p id="demo"></p>
+
+			<script>
+
+			const x = document.getElementById("demo");
+			
+
+			function getLocation() 
+			{
+				if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+				} else { 
+				x.innerHTML = "Geolocation is not supported by this browser.";
+				}
+			}
+			
+			function showPosition(position) 
+			{
+				x.innerHTML = "Latitude: " + position.coords.latitude + 
+				"<br>Longitude: " + position.coords.longitude;
+			}
+
+			</script> 
+			
+		</form>
+
+		<div class="container-fluid h-100">
+			<div class="row justify-content-center h-100">
+				<div class="col-md-4 col-xl-3 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">
+					<div class="card-header">
+						<div class="input-group">
+							<div class="video_cam">
+								<span><i type="button" class="fa-solid fa-people-group" onclick="window.open('ChatGrupal.html','popup')" id="GruposBtn"></i></span>
+
+								<span><i type="button" class="fa-solid fa-user-large-slash" id="signOutBtn"></i></span>
+
+							</div>
+						</div>
+					</div>
+<!-- //////este user es a la persona a la q se le manda el msj -->
+                    
+					<div class="card-body contacts_body">
+						<ui class="contacts">
+							
+						</ui>
+					</div>
+					<div class="card-footer"></div>
+				</div></div>
+				<div class="col-md-8 col-xl-6 chat" id="chatCard">
+					<div class="card">
+						<div class="card-header msg_head">
+							
+							<div class="video_cam">
+								<span><i type="button" class="fas fa-video" id="videochat"></i></span>
+								<span><i type="button" class="fas fa-mail-bulk" onclick="window.open('correo.html','popup')" id="correoBtn"></i></span>
+								<span><i type="button" class="fas fa-map-marker-alt" onclick="getLocation()" id="ubicacionBtn"></i></span>
+							</div>
+
+							<span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+							<div class="action_menu">
+								<ul>
+									<li><i class="fas fa-user-circle"></i> Ver perfil</li>
+									<li><i class="fas fa-users"></i> Agregar a close friends</li>
+									<li><i class="fas fa-plus"></i> Agregar a grupo</li>
+									<li><i class="fas fa-ban"></i> Bloquear</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card-body msg_card_body" id="messages">
+							<div class="d-flex justify-content-start mb-4">
+								<div class="img_cont_msg">
+									<img src="https://i.pinimg.com/564x/53/e2/de/53e2de66257f04782768afcd09a5fc9d.jpg" class="rounded-circle user_img_msg">
+								</div>
+								<div class="msg_cotainer">
+									buenas?
+									<span class="msg_time">8:40 AM, Hoy</span>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end mb-4">
+								<div class="msg_cotainer_send">
+									a ver si jala
+									<span class="msg_time_send">8:55 AM, Hoy</span>
+								</div>
+								<div class="img_cont_msg">
+							<img src="https://i.pinimg.com/564x/98/eb/18/98eb184642c1a49b7590e06566ef04bb.jpg" class="rounded-circle user_img_msg">
+								</div>
+							</div>
+							<div class="d-flex justify-content-start mb-4">
+								<div class="img_cont_msg">
+									<img src="https://i.pinimg.com/564x/53/e2/de/53e2de66257f04782768afcd09a5fc9d.jpg" class="rounded-circle user_img_msg">
+								</div>
+								<div class="msg_cotainer">
+									si jala
+									<span class="msg_time">9:00 AM, Hoy</span>
+								</div>
+				
+							</div>
+						</div>
+						<div class="card-footer">
+							<div class="input-group">
+								<div class="input-group-append">
+									<span class="input-group-text attach_btn"><i class="fas fa-paperclip" onclick="file" ></i></span>
+								</div>
+								<textarea id="mensaje" class="form-control type_msg" placeholder="Escribe tu mensaje..."></textarea>
+								
+								<div class="input-group-append">
+									<span class="input-group-text send_btn"><i type="button" id="btnEnviar" class="fas fa-location-arrow"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const enlace = document.getElementById("videochat");
+			enlace.href="#";
+			enlace.addEventListener('click', function(){
+				enlace.href="#";
+				window.open('video llamada.html','popup');
+			});
+		</script>
+	
+	</body>
+
+
+</html>

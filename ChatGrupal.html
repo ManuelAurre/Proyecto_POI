@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat viejo</title>
+    <script type="module" src="mensajes.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+</head>
+<body>
+    <section>
+        <div align="center"> 
+              <!-- GrupoS -->
+            <div >
+                <label for="grupos">Tus grupos:</label>
+                <select id="grupos">
+                </select>
+                <input type="button" id="seleccionarGrupo" value="Seleccionar">
+            </div>
+            
+            <br>
+            <div>
+                <label id="tmgrupo">No tienes mensajes</label>
+            </div>
+            
+            <br>
+            <div>
+                <label for="mensajeGrupo">Inserta texto:</label>
+                <input type="text" id="mensajeGrupo">
+                <input type="button" id="btnEnviar2" value="Enviar">
+            </div>
+            <br><br>
+            <input type="button"  onclick="window.open('correo.html','popup')"  id="correoBtn" value="Enviar correo">
+
+            <input type="button"  onclick="getLocation()" id="ubicacionBtn" value="Obtener mi ubicacion">
+
+            <input type="button" id="videochatBtn" value="Comenzar videollamada">
+            <br><br>
+
+            <script>
+              const enlace = document.getElementById("videochatBtn");
+              enlace.href="#";
+              enlace.addEventListener('click', function(){
+                  enlace.href="#";
+                  window.open('video llamada.html','popup');
+              });
+            </script>
+
+
+
+
+            <p id="demo"></p>
+    
+            <script>
+            
+              const x = document.getElementById("demo");
+              
+
+              function getLocation() 
+              {
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(showPosition);
+                } else { 
+                  x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+              }
+              
+              function showPosition(position) 
+              {
+                x.innerHTML = "Latitude: " + position.coords.latitude + 
+                "<br>Longitude: " + position.coords.longitude;
+              }
+
+            </script> 
+
+      </div>
+        
+    </section>
+
+</body>
+</html>
